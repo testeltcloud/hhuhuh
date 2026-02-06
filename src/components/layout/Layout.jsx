@@ -32,12 +32,7 @@ export default function Layout({ children }) {
                 onClick={logout}
                 title="Trocar perfil"
               >
-                <div 
-                  className="profile-avatar"
-                  style={{ backgroundColor: currentProfile?.color }}
-                >
-                  {currentProfile?.name?.charAt(0).toUpperCase()}
-                </div>
+              
                 <span className="text-sm font-medium desktop-only">{currentProfile?.name}</span>
               </button>
             </div>
