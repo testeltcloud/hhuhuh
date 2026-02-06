@@ -47,6 +47,12 @@
   --transition-normal: 250ms ease;
   --transition-slow: 350ms ease;
 
+  /* Safe Area Insets */
+  --sai-top: env(safe-area-inset-top, 0px);
+  --sai-bottom: env(safe-area-inset-bottom, 0px);
+  --sai-left: env(safe-area-inset-left, 0px);
+  --sai-right: env(safe-area-inset-right, 0px);
+
   /* Layout specific */
   --sidebar-width: 250px;
   --header-height: 70px;
@@ -187,10 +193,10 @@ body {
 
 /* Header */
 .header {
-  height: var(--header-height);
+  height: calc(var(--header-height) + var(--sai-top));
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
-  padding: 0 var(--space-md);
+  padding: var(--sai-top) var(--space-md) 0;
   display: flex;
   align-items: center;
   z-index: 40;
@@ -246,7 +252,7 @@ body {
   overflow-y: auto;
   padding: var(--space-md);
   /* Padding bottom to account for bottom nav on mobile */
-  padding-bottom: calc(var(--bottom-nav-height) + var(--space-md));
+  padding-bottom: calc(var(--bottom-nav-height) + var(--space-md) + var(--sai-bottom));
 }
 
 .container {
@@ -257,7 +263,7 @@ body {
 
 /* Bottom Nav (Mobile) */
 .bottom-nav {
-  height: var(--bottom-nav-height);
+  height: calc(var(--bottom-nav-height) + var(--sai-bottom));
   position: absolute;
   bottom: 0;
   left: 0;
@@ -266,7 +272,7 @@ body {
   border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-around;
-  padding: var(--space-sm) 0;
+  padding: var(--space-sm) 0 calc(var(--space-sm) + var(--sai-bottom));
   z-index: 50;
 }
 
@@ -648,7 +654,7 @@ body {
 /* FAB */
 .fab {
   position: absolute; /* Changed from fixed to absolute within container */
-  bottom: calc(var(--bottom-nav-height) + var(--space-md));
+  bottom: calc(var(--bottom-nav-height) + var(--space-md) + var(--sai-bottom));
   right: var(--space-md);
   width: 56px;
   height: 56px;
