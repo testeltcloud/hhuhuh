@@ -95,7 +95,7 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
-  overflow: hidden; /* Prevent body scroll, let app-shell handle it */
+  overflow: hidden; /* Prevent body scroll by default, overridden for mobile below */
 }
 
 /* Glassmorphism card */
@@ -264,7 +264,7 @@ body {
 /* Bottom Nav (Mobile) */
 .bottom-nav {
   height: calc(var(--bottom-nav-height) + var(--sai-bottom));
-  position: absolute;
+  position: fixed; /* Changed from absolute to fixed */
   bottom: 0;
   left: 0;
   right: 0;
@@ -273,7 +273,7 @@ body {
   display: flex;
   justify-content: space-around;
   padding: var(--space-sm) 0 calc(var(--space-sm) + var(--sai-bottom));
-  z-index: 50;
+  z-index: 1000; /* Increased z-index */
 }
 
 .bottom-nav-item {
@@ -640,6 +640,38 @@ body {
   cursor: pointer;
   white-space: nowrap;
   transition: all var(--transition-fast);
+}
+
+/* Mobile Layout Overrides - Enable Body Scroll */
+@media (max-width: 768px) {
+  body {
+    overflow-y: auto !important; /* Enable body scroll on mobile */
+    overscroll-behavior-y: none; /* Prevent bounce if desired, or remove */
+  }
+
+  .app-shell {
+    height: auto !important;
+    min-height: 100vh;
+    overflow: visible !important;
+  }
+
+  .main-wrapper {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .content-area {
+    overflow: visible !important;
+    height: auto !important;
+    /* Padding bottom is already set to accommodate bottom nav */
+  }
+
+  /* Fix FAB to be fixed position on mobile since body scrolls now */
+  .fab {
+    position: fixed !important;
+    bottom: calc(var(--bottom-nav-height) + var(--space-md) + var(--sai-bottom));
+    right: var(--space-md);
+  }
 }
 
 .filter-chip:hover {
